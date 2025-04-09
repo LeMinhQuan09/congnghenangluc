@@ -1,0 +1,273 @@
+<?php
+
+namespace Webhd\Widgets;
+
+use Webhd\Helpers\Abstract_Widget;
+use Webhd\Helpers\Str;
+
+class Reviews_Tabs_Carousel_Widget extends Abstract_Widget {
+	public function __construct() {
+		$this->widget_description = __( 'Your site&#8217;s filter reviews tabs carousel.', 'hd' );
+		$this->widget_name        = __( 'W - Tabs Reviews Carousels', 'hd' );
+		$this->settings           = [
+			'title' => [
+				'type'  => 'text',
+				'std'   => '',
+				'label' => __( 'Title', 'hd' ),
+			],
+		];
+
+		parent::__construct();
+	}
+
+	/**
+	 * @param array $args
+	 * @param array $instance
+	 */
+	public function widget( $args, $instance ) {
+
+		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
+		$title = $this->get_instance_title( $instance );
+
+		// ACF attributes
+		$ACF = $this->acfFields( 'widget_' . $args['widget_id'] );
+		if ( is_null( $ACF ) ) {
+			wp_die( __( 'Required: "Advanced Custom Fields" plugin', 'hd' ) );
+		}
+
+		// class
+		$_class = '';
+		if ( $ACF->css_class ) {
+			$_class = $_class . ' ' . $ACF->css_class;
+		}
+
+		$html_desc = $ACF->html_desc ?? '';
+		$number    = $ACF->number ?? 0;
+
+		$tabs    = $ACF->banner_cat_list ?? [];
+		$wrapper = $ACF->wrapper ?? false;
+
+		$_count_tabs    = count( $tabs );
+		$_tab_nav_class = ( $_count_tabs > 1 ) ? '' : ' hide';
+
+		?>
+        <section class="section carousels-section reviews-carousels filter-tabs-reviews<?= $_class ?>">
+			<?php if ( $wrapper ) {
+				echo '<div class="grid-container width-extra">';
+			} ?>
+
+			<?php if ( $title || $html_desc ) : ?>
+                <div class="title-container">
+					<?php if ( $title ) : ?>
+                        <h2 class="heading-title"><?php echo $title; ?></h2>
+					<?php endif; ?>
+					<?php if ( Str::stripSpace( $html_desc ) ) : ?>
+                        <div class="html-desc"><?php echo $html_desc; ?></div>
+					<?php endif; ?>
+                </div>
+			<?php endif; ?>
+
+			<?php if ( $tabs ) : $rand = 'tabs_' . $this->id; ?>
+                <div id="<?php echo $this->id; ?>" aria-label="<?php echo esc_attr( $title ); ?>">
+                    <div id="<?php echo 'tabs_' . $this->id; ?>" class="w-filter-tabs filter-tabs">
+                        <div class="tabs-nav<?= $_tab_nav_class ?>">
+                            <ul>
+								<?php foreach ( $tabs as $i => $cat_id ) :
+									$term = get_term( $cat_id, 'banner_cat' );
+									?>
+                                    <li>
+                                        <a href="<?php echo '#' . $rand . $i . $cat_id ?>"
+                                           aria-label="<?php echo esc_attr( $term->name ) ?>">
+                                            <span><?php echo $term->name; ?></span>
+                                        </a>
+                                    </li>
+								<?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="tabs-content">
+							<?php
+							foreach ( $tabs as $i => $cat_id ) :
+								$term = get_term( $cat_id, 'banner_cat' );
+								if ( $term ) :
+									$r = query_by_term( $term, 'banner', false, $number, [ 'menu_order' => 'DESC' ] );
+									?>
+                                    <div id="<?php echo $rand . $i . $cat_id ?>" class="tabs-panel">
+										<?php if ( $r ) : ?>
+                                            <div class="swiper-section reviews-outer">
+												<?php
+												$swiper_class = ' dynamic';
+												$_data        = [
+													'pagination' => 'dynamic',
+													'gap'        => true,
+												];
+
+												if ( $ACF->navigation ) {
+													$_data["navigation"] = true;
+												}
+												if ( $ACF->autoplay ) {
+													$_data["autoplay"] = true;
+												}
+												if ( $ACF->delay ) {
+													$_data["delay"] = $ACF->delay;
+												}
+												if ( $ACF->speed ) {
+													$_data["speed"] = $ACF->speed;
+												}
+												if ( $ACF->loop ) {
+													$_data["loop"] = true;
+												}
+
+												if ( ! $ACF->number_desktop || ! $ACF->number_tablet || ! $ACF->number_mobile ) {
+													$_data["autoview"] = true;
+													$swiper_class      .= ' autoview';
+												} else {
+													$_data["desktop"] = $ACF->number_desktop;
+													$_data["tablet"]  = $ACF->number_tablet;
+													$_data["mobile"]  = $ACF->number_mobile;
+												}
+
+												$_data = json_encode( $_data, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE );
+
+												?>
+                                                <div class="w-swiper swiper<?= $swiper_class ?>">
+                                                    <div class="swiper-wrapper" data-options='<?= $_data; ?>'>
+														<?php
+														// Load slides loop.
+														while ( $r->have_posts() ) : $r->the_post();
+															$post       = get_post();
+															$ACF_banner = $this->acfFields( $post->ID );
+
+															if ( has_post_thumbnail() ) :
+																?>
+                                                                <div class="swiper-slide">
+																	<?php
+																	$_class = '';
+																	$glyph  = '';
+
+																	$title = $post->post_title;
+
+																	$responsive_image = $ACF_banner->responsive_image ?? '';
+																	$sub_title        = $ACF_banner->sub_title ?? '';
+																	$html_title       = $ACF_banner->html_title ?? '';
+																	$html_desc        = $ACF_banner->html_desc ?? '';
+																	$video_url        = $ACF_banner->url ?? '';
+																	$button_url       = $ACF_banner->button_url ?? '';
+																	$button_glyph     = $ACF_banner->button_glyph ?? '';
+																	$button_text      = $ACF_banner->button_text ?? '';
+
+																	$rating        = $ACF_banner->rating ?? false;
+																	$rating_number = $ACF_banner->rating_number ?? 1;
+																	$rating_name   = $ACF_banner->rating_name ?? '';
+
+																	if ( $video_url ) :
+																		$_class = ' has-video';
+																		$glyph  = ' data-glyph=""';
+																	endif;
+
+																	?>
+                                                                    <article class="item<?= $_class ?>">
+                                                                        <div class="item_inner">
+                                                                            <div class="overlay"<?= $glyph ?>>
+                                                                                <picture>
+																					<?php if ( $responsive_image ) : ?>
+                                                                                        <source media="(max-width: 639.98px)"
+                                                                                                srcset="<?= attachment_image_src( $responsive_image, 'medium' ) ?>">
+																					<?php else : ?>
+                                                                                        <source media="(max-width: 639.98px)"
+                                                                                                srcset="<?= post_image_src( $post->ID, 'medium' ) ?>">
+                                                                                        <source media="(max-width: 1023.98px)"
+                                                                                                srcset="<?= post_image_src( $post->ID, 'large' ) ?>">
+																					<?php endif; ?>
+                                                                                    <img src="<?php echo post_image_src( $post->ID, 'widescreen' ) ?>"
+                                                                                         alt="<?php echo $post->post_name; ?>">
+                                                                                </picture>
+																				<?php if ( $video_url ) : ?>
+                                                                                    <a class="link-overlay _blank fcy-video"
+                                                                                       href="<?= $video_url ?>"
+                                                                                       title></a>
+																				<?php endif; ?>
+                                                                            </div>
+																			<?php if ( $title || $html_title || $html_desc ) : ?>
+                                                                                <div class="content-wrap">
+                                                                                    <div class="content-inner">
+                                                                                        <div class="inner">
+																							<?php if ( $title ) : ?>
+                                                                                                <p class="heading-title"><?= $title ?></p>
+																							<?php endif; ?>
+
+																							<?php if ( Str::stripSpace( $sub_title ) ) : ?>
+                                                                                                <p class="sub-title"><?= $sub_title ?></p>
+																							<?php endif; ?>
+
+																							<?php if ( Str::stripSpace( $html_title ) ) : ?>
+                                                                                                <div class="html-title"><?= $html_title ?></div>
+																							<?php endif; ?>
+
+																							<?php if ( Str::stripSpace( $html_desc ) ) : ?>
+                                                                                                <div class="html-desc"><?= $html_desc ?></div>
+																							<?php endif; ?>
+
+																							<?php if ( $rating ) :
+																								$percent = 100 * $rating_number / 5;
+																								?>
+                                                                                                <div class="star-rating2">
+                                                                                                    <div class="rating-inner">
+                                                                                                        <i data-glyph=""></i><i
+                                                                                                                data-glyph=""></i><i
+                                                                                                                data-glyph=""></i><i
+                                                                                                                data-glyph=""></i><i
+                                                                                                                data-glyph=""></i>
+                                                                                                        <div style="width: <?= $percent ?>%">
+                                                                                                            <i data-glyph=""></i><i
+                                                                                                                    data-glyph=""></i><i
+                                                                                                                    data-glyph=""></i><i
+                                                                                                                    data-glyph=""></i><i
+                                                                                                                    data-glyph=""></i>
+                                                                                                        </div>
+                                                                                                    </div>
+																									<?php if ( $rating_name ) : ?>
+                                                                                                        <p class="rating-name">
+                                                                                                            - <?= $rating_name ?></p>
+																									<?php endif; ?>
+                                                                                                </div>
+																							<?php endif; ?>
+
+																							<?php if ( $button_url ) : ?>
+                                                                                                <div class="btn-link"><a
+                                                                                                            class="viewmore viewmore-button"
+                                                                                                            href="<?= $button_url ?>"
+                                                                                                            aria-label="<?php esc_attr_e( $button_text, 'hd' ); ?>"<?php if ( $button_glyph ) {
+																										echo ' data-glyph-after="' . $button_glyph . '"';
+																									} ?>><span><?php echo __( $button_text, 'hd' ) ?></span></a>
+                                                                                                </div>
+																							<?php endif; ?>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+																			<?php endif; ?>
+                                                                        </div>
+                                                                    </article>
+                                                                </div>
+															<?php
+															endif;
+														endwhile;
+														wp_reset_postdata();
+														?>
+                                                    </div>
+                                                </div>
+                                            </div>
+										<?php endif; ?>
+                                    </div>
+								<?php endif; endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+			<?php endif; ?>
+
+			<?php if ( $wrapper ) {
+				echo '</div>';
+			} ?>
+        </section>
+		<?php
+	}
+}

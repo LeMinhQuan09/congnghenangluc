@@ -1,0 +1,661 @@
+@import "mixins";
+
+.elementor-select-wrapper .select-caret-down-wrapper {
+    display: none !important;
+}
+
+/** */
+.elementor-element {
+
+    /** */
+    &.e-res {
+        .elementor-cta, .elementor-fit-aspect-ratio {
+            @include responsive-wrapper();
+        }
+
+        .elementor-fit-aspect-ratio {
+            iframe, embed, object, video {
+                @include absolute-full;
+                border: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    /** */
+    &.e-ar-1, &.e-ar-1-1 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include responsive-ratio(1, 1);
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-ar-3-2 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include responsive-ratio(3, 2);
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-ar-2-3 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include responsive-ratio(2, 3);
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-ar-4-3 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include responsive-ratio(4, 3);
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-ar-3-4 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include responsive-ratio(3, 4);
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-ar-16-9 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include responsive-ratio(16, 9);
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-ar-21-9 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include responsive-ratio(21, 9);
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-ar-2-1 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include responsive-ratio(2, 1);
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-ar-3-1 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include responsive-ratio(3, 1);
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    /** */
+    &.e-art-1, &.e-art-1-1 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include not-desktop {
+                @include responsive-ratio(1, 1);
+            }
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-art-3-2 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include not-desktop {
+                @include responsive-ratio(3, 2);
+            }
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-art-4-3 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include not-desktop {
+                @include responsive-ratio(4, 3);
+            }
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-art-16-9 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include not-desktop {
+                @include responsive-ratio(16, 9);
+            }
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    /** */
+    &.e-arm-1, &.e-arm-1-1 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include mobile {
+                @include responsive-ratio(1, 1);
+            }
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-arm-3-2 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include mobile {
+                @include responsive-ratio(3, 2);
+            }
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-arm-4-3 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include mobile {
+                @include responsive-ratio(4, 3);
+            }
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    &.e-arm-16-9 {
+        .elementor-fit-aspect-ratio, .elementor-cta {
+            @include mobile {
+                @include responsive-ratio(16, 9);
+            }
+        }
+
+        &.cmt-cover {
+            .elementor-cta {
+                .elementor-cta__content {
+                    @include absolute-full;
+                }
+            }
+        }
+    }
+
+    /** */
+    &.grid-container {
+        @include position-screen(padding-left, 0, 0, false);
+        @include position-screen(padding-right, 0, 0, false);
+
+        &.w-grid {
+            @include position-screen(padding-left, 0, 0, true);
+            @include position-screen(padding-right, 0, 0, true);
+        }
+
+        & > .elementor-element {
+            @include media-pl(15, false, 10);
+            @include media-pr(15, false, 10);
+        }
+    }
+
+    &.e-layout {
+        @include position-screen(padding-left, 0, 0, true);
+        @include position-screen(padding-right, 0, 0, true);
+
+        @include xxxdesktop {
+            max-width: 100%;
+            padding-left: 165px;
+            padding-right: 165px;
+        }
+
+        & > .elementor-element {
+            @include media-pl(15, false, 10);
+            @include media-pr(15, false, 10);
+        }
+
+        &.no-padding {
+            @include position-screen(padding-left, 15, 0, true);
+            @include position-screen(padding-right, 15, 0, true);
+
+            & > .elementor-element {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    }
+
+    &.e-grid-child {
+        & > .elementor-element {
+            @include media-pl(15, false, 10);
+            @include media-pr(15, false, 10);
+        }
+    }
+
+    /** */
+    &.e-grid {
+        @include position-screen(padding-left, 0, 0, false);
+        @include position-screen(padding-right, 0, 0, false);
+
+        & > .elementor-element {
+            @include media-pl(15, false, 10);
+            @include media-pr(15, false, 10);
+        }
+
+        &.no-padding {
+            @include position-screen(padding-left, 15, 0, false);
+            @include position-screen(padding-right, 15, 0, false);
+
+            & > .elementor-element {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        &.e-grid-y {
+            & > .elementor-element {
+                @include media-pt(15, false, 10);
+                @include media-pb(15, false, 10);
+            }
+        }
+
+        &.w-grid {
+            @include position-screen(padding-left, 0, 0, true);
+            @include position-screen(padding-right, 0, 0, true);
+
+            &.no-padding {
+                @include position-screen(padding-left, 15, 0, true);
+                @include position-screen(padding-right, 15, 0, true);
+
+                & > .elementor-element {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
+        }
+
+        &.widescreen {
+            @include xxxdesktop {
+                max-width: 100%;
+                padding-left: 165px;
+                padding-right: 165px;
+            }
+        }
+    }
+
+    /** */
+    &.e-grid-left {
+        @include position-screen(padding-right, 0, 0, false);
+
+        &.no-padding {
+            @include position-screen(padding-right, 15, 10, false);
+
+            & > .elementor-element {
+                padding-right: 0;
+            }
+        }
+
+        &.w-grid {
+            @include position-screen(padding-right, 0, 0, true);
+
+            &.no-padding {
+                @include position-screen(padding-right, 15, 10, true);
+            }
+        }
+
+        & > .elementor-element {
+            @include media-pr(15, false, 10);
+        }
+    }
+
+    /** */
+    &.e-grid-right {
+        @include position-screen(padding-left, 0, 0, false);
+
+        &.no-padding {
+            @include position-screen(padding-left, 15, 10, false);
+
+            & > .elementor-element {
+                padding-left: 0;
+            }
+        }
+
+        &.w-grid {
+            @include position-screen(padding-left, 0, 0, true);
+
+            &.no-padding {
+                @include position-screen(padding-left, 15, 10, true);
+            }
+        }
+
+        & > .elementor-element {
+            @include media-pl(15, false, 10);
+        }
+    }
+
+    /** */
+    &.section-padding {
+        @include media-pt(50, 40, 30);
+        @include media-pb(50, 40, 30);
+    }
+
+    /** */
+    &.heading-title {
+        .elementor-heading-title {
+            font-weight: 600;
+            @include fs-heading(h5);
+            /*letter-spacing: 0.5px;*/
+            line-height: 1.35;
+            display: flex;
+            flex-direction: column;
+
+            &::before {
+                content: "";
+                background-image: url(../img/icon111.png);
+                width: 100%;
+                height: 19px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    /** */
+    @for $i from 1 through 6 {
+        &._h#{$i} {
+            margin-bottom: 0;
+
+            .elementor-heading-title {
+                @include fs-heading(h#{$i});
+                line-height: $header-line-height;
+            }
+        }
+    }
+
+    /** */
+    &.e-scale {
+        .elementor-image-box-img {
+            overflow: hidden;
+
+            img {
+                @include responsive-scale();
+            }
+        }
+    }
+
+    /** */
+    &.elementor-widget-image-carousel {
+        .elementor-swiper-button {
+            i {
+                font-weight: 400;
+            }
+            &.elementor-swiper-button-prev {
+                left: 30px;
+            }
+            &.elementor-swiper-button-next {
+                right: 30px;
+            }
+        }
+    }
+
+}
+
+/** */
+.elementor-element {
+    &.elementor-faq {
+        .elementor-widget-container {
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        .elementor-toggle-item {
+            .elementor-tab-title {
+                border-bottom: none;
+                box-shadow: 0 0 40px transparentize($gray, 0.9);
+                padding: 10px 20px 10px 25px;
+                position: relative;
+                cursor: pointer;
+                background: transparentize($white, 0.2);
+                backdrop-filter: blur(5px);
+                border-radius: 44px;
+
+                .elementor-toggle-icon {
+                    svg {
+                        fill: $header-color;
+                        width: auto;
+                        height: 24px;
+                    }
+                }
+
+                .elementor-toggle-title {
+                    padding-right: 60px;
+                    font-weight: 400;
+                    line-height: 1.5;
+                }
+
+                &.elementor-active {
+                    box-shadow: 0 0 40px rgb(16 95 47 / 10%);
+                    @include linear-gradient(135deg, $color1);
+
+                    .elementor-toggle-icon {
+                        svg {
+                            fill: $white;
+                        }
+                    }
+
+                    .elementor-toggle-title {
+                        color: $white;
+                    }
+                }
+            }
+
+            .elementor-tab-content {
+                border-bottom: none;
+                padding: 15px 40px 30px 25px;
+                font-size: $medium-font-size;
+                background-color: rgb(255 255 255 / 80%);
+                border-radius: 15px;
+                backdrop-filter: blur(5px);
+                margin-top: 15px;
+            }
+        }
+    }
+
+    &.elementor_form {
+        border-radius: 30px;
+
+        .elementor-widget-form {
+            input {
+                @include placeholder(#fff);
+                margin-bottom: 0;
+            }
+
+            select {
+                background-position: right -4px center;
+                filter: brightness(0) invert(1);
+                margin-bottom: 0;
+
+                option {
+                    color: $header-color;
+                }
+            }
+        }
+    }
+
+
+}
+
+/** */
+.elementor-element {
+    &.elementor-blockquote--skin-quotation {
+        blockquote.elementor-blockquote {
+            opacity: 0.9;
+            margin-bottom: 30px;
+            margin-top: 0;
+            display: flex;
+            //align-items: baseline;
+            font-weight: 300;
+            color: $header-color;
+            font-size: fs(16);
+            @include mobile {
+                margin-bottom: 20px;
+            }
+
+            &::before {
+                font-weight: 900;
+                margin-right: 15px;
+                color: $header-color;
+                font-size: 150%;
+            }
+        }
+    }
+
+    /** */
+    &.home-forms {
+        button[type="submit"] {
+            & > span {
+                .elementor-button-icon {
+                    border: 1px solid #fff;
+                    border-radius: 50%;
+                    width: 33px;
+                    height: 33px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    i {
+                        font-weight: 300;
+                        font-size: 16px;
+                    }
+                }
+                .elementor-button-text {}
+            }
+        }
+    }
+
+    /** */
+    &.home-accordion {
+        .elementor-toggle-item {
+            .elementor-tab-title {
+                display: flex;
+                align-items: center;
+                .elementor-toggle-icon {
+                    width: 24px;
+                    height: 24px;
+                    i {
+                        font-size: 24px;
+                        font-weight: 900;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** */
+
+/** */
+body.elementor-page {
+    #ftwp-container {
+        display: none;
+    }
+}
